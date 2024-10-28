@@ -141,9 +141,7 @@ def test_builds_checkboxes():
             {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
             {"text": {"type": "mrkdwn", "text": "_option 2_"}, "value": "value_2"},
         ],
-        "initial_options": [
-            {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}
-        ],
+        "initial_options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -156,18 +154,12 @@ def test_builds_checkboxes():
 
 def test_checkboxes_empty_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        Checkboxes(
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            action_id="",
-        )
+        Checkboxes(options=[PlainOption(text=PlainText(text="option 1"), value="value_1")], action_id="")
 
 
 def test_checkboxes_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        Checkboxes(
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            action_id="a" * 256,
-        )
+        Checkboxes(options=[PlainOption(text=PlainText(text="option 1"), value="value_1")], action_id="a" * 256)
 
 
 def test_checkboxes_empty_options_raise_exception():
@@ -177,29 +169,19 @@ def test_checkboxes_empty_options_raise_exception():
 
 def test_checkboxes_excessive_options_raise_exception():
     with pytest.raises(ValidationError):
-        Checkboxes(
-            options=[
-                PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")
-                for o in range(11)
-            ]
-        )
+        Checkboxes(options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}") for o in range(11)])
 
 
 def test_checkboxes_empty_initial_options_raise_exception():
     with pytest.raises(ValidationError):
-        Checkboxes(
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            initial_options=[],
-        )
+        Checkboxes(options=[PlainOption(text=PlainText(text="option 1"), value="value_1")], initial_options=[])
 
 
 def test_checkboxes_initial_options_arent_within_options_raise_exception():
     with pytest.raises(ValidationError):
         Checkboxes(
             options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            initial_options=[
-                PlainOption(text=PlainText(text="option 2"), value="value_2")
-            ],
+            initial_options=[PlainOption(text=PlainText(text="option 2"), value="value_2")],
         )
 
 
@@ -253,14 +235,7 @@ def test_datepicker_invalid_initial_date_raises_exception():
 def test_builds_datetimepicker():
     assert DatetimePicker(
         action_id="action_id",
-        initial_date_time=datetime(
-            year=2023,
-            month=1,
-            day=2,
-            hour=3,
-            minute=4,
-            tzinfo=gettz("America/New_York"),
-        ),
+        initial_date_time=datetime(year=2023, month=1, day=2, hour=3, minute=4, tzinfo=gettz("America/New_York")),
         confirm=Confirm(
             title=PlainText(text="title"),
             text=MarkdownText(text="text"),
@@ -298,9 +273,7 @@ def test_datetimepicker_invalid_initial_datetime_raises_exception():
 
 
 def test_builds_image():
-    assert Image(
-        image_url="http://placekitten.com/100/100", alt_text="kitten"
-    ).build() == {
+    assert Image(image_url="http://placekitten.com/100/100", alt_text="kitten").build() == {
         "type": "image",
         "image_url": "http://placekitten.com/100/100",
         "alt_text": "kitten",
@@ -338,16 +311,10 @@ def test_builds_static_select_with_options():
         "placeholder": {"type": "plain_text", "text": "placeholder", "emoji": True},
         "action_id": "action_id",
         "options": [
-            {
-                "text": {"type": "plain_text", "text": "option 1", "emoji": True},
-                "value": "value_1",
-            },
+            {"text": {"type": "plain_text", "text": "option 1", "emoji": True}, "value": "value_1"},
             {"text": {"type": "plain_text", "text": "option 2"}, "value": "value_2"},
         ],
-        "initial_option": {
-            "text": {"type": "plain_text", "text": "option 1"},
-            "value": "value_1",
-        },
+        "initial_option": {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -364,8 +331,7 @@ def test_builds_static_select_with_option_groups():
         action_id="action_id",
         option_groups=[
             OptionGroup(
-                label=PlainText(text="group 1"),
-                options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
+                label=PlainText(text="group 1"), options=[PlainOption(text=PlainText(text="option 1"), value="value_1")]
             )
         ],
         initial_option=PlainOption(text=PlainText(text="option 1"), value="value_1"),
@@ -377,18 +343,10 @@ def test_builds_static_select_with_option_groups():
         "option_groups": [
             {
                 "label": {"type": "plain_text", "text": "group 1"},
-                "options": [
-                    {
-                        "text": {"type": "plain_text", "text": "option 1"},
-                        "value": "value_1",
-                    }
-                ],
+                "options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
             }
         ],
-        "initial_option": {
-            "text": {"type": "plain_text", "text": "option 1"},
-            "value": "value_1",
-        },
+        "initial_option": {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
         "focus_on_load": True,
     }
 
@@ -406,15 +364,11 @@ def test_static_select_with_options_and_option_groups_raises_exception():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text="group 1"),
-                    options=[
-                        PlainOption(text=PlainText(text="option 1"), value="value_1")
-                    ],
+                    options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
                 ),
                 OptionGroup(
                     label=PlainText(text="group 2"),
-                    options=[
-                        PlainOption(text=PlainText(text="option 2"), value="value_2")
-                    ],
+                    options=[PlainOption(text=PlainText(text="option 2"), value="value_2")],
                 ),
             ],
         )
@@ -455,10 +409,7 @@ def test_static_select_excessive_options_raise_exception():
     with pytest.raises(ValidationError):
         StaticSelect(
             placeholder=PlainText(text="placeholder"),
-            options=[
-                PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")
-                for o in range(101)
-            ],
+            options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}") for o in range(101)],
         )
 
 
@@ -474,11 +425,7 @@ def test_static_select_excessive_option_groups_raise_exception():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text=f"group {o}"),
-                    options=[
-                        PlainOption(
-                            text=PlainText(text=f"option {o}"), value=f"value_{o}"
-                        )
-                    ],
+                    options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")],
                 )
                 for o in range(101)
             ],
@@ -490,9 +437,7 @@ def test_static_select_initial_option_isnt_within_options():
         StaticSelect(
             placeholder=PlainText(text="placeholder"),
             options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            initial_option=PlainOption(
-                text=PlainText(text="option 2"), value="value_2"
-            ),
+            initial_option=PlainOption(text=PlainText(text="option 2"), value="value_2"),
         )
 
 
@@ -504,14 +449,10 @@ def test_static_select_initial_option_isnt_within_option_groups():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text="group 1"),
-                    options=[
-                        PlainOption(text=PlainText(text="option 1"), value="value_1")
-                    ],
+                    options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
                 )
             ],
-            initial_option=PlainOption(
-                text=PlainText(text="option 2"), value="value_2"
-            ),
+            initial_option=PlainOption(text=PlainText(text="option 2"), value="value_2"),
         )
 
 
@@ -540,9 +481,7 @@ def test_builds_multi_static_select_with_options():
             {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
             {"text": {"type": "plain_text", "text": "option 2"}, "value": "value_2"},
         ],
-        "initial_options": [
-            {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}
-        ],
+        "initial_options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -560,8 +499,7 @@ def test_builds_multi_static_select_with_option_groups():
         action_id="action_id",
         option_groups=[
             OptionGroup(
-                label=PlainText(text="group 1"),
-                options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
+                label=PlainText(text="group 1"), options=[PlainOption(text=PlainText(text="option 1"), value="value_1")]
             )
         ],
         initial_options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
@@ -573,17 +511,10 @@ def test_builds_multi_static_select_with_option_groups():
         "option_groups": [
             {
                 "label": {"type": "plain_text", "text": "group 1"},
-                "options": [
-                    {
-                        "text": {"type": "plain_text", "text": "option 1"},
-                        "value": "value_1",
-                    }
-                ],
+                "options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
             }
         ],
-        "initial_options": [
-            {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}
-        ],
+        "initial_options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
         "focus_on_load": True,
     }
 
@@ -601,9 +532,7 @@ def test_multi_static_select_with_options_and_option_groups_raises_exception():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text="group 1"),
-                    options=[
-                        PlainOption(text=PlainText(text="option 1"), value="value_1")
-                    ],
+                    options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
                 )
             ],
         )
@@ -644,10 +573,7 @@ def test_multi_static_select_excessive_options_raise_exception():
     with pytest.raises(ValidationError):
         MultiStaticSelect(
             placeholder=PlainText(text="placeholder"),
-            options=[
-                PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")
-                for o in range(101)
-            ],
+            options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}") for o in range(101)],
         )
 
 
@@ -663,11 +589,7 @@ def test_multi_static_select_excessive_option_groups_raise_exception():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text=f"group {o}"),
-                    options=[
-                        PlainOption(
-                            text=PlainText(text=f"option {o}"), value=f"value_{o}"
-                        )
-                    ],
+                    options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")],
                 )
                 for o in range(101)
             ],
@@ -679,9 +601,7 @@ def test_multi_static_select_initial_options_arent_within_options():
         MultiStaticSelect(
             placeholder=PlainText(text="placeholder"),
             options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            initial_options=[
-                PlainOption(text=PlainText(text="option 2"), value="value_2")
-            ],
+            initial_options=[PlainOption(text=PlainText(text="option 2"), value="value_2")],
         )
 
 
@@ -693,14 +613,10 @@ def test_multi_static_select_initial_options_arent_within_option_groups():
             option_groups=[
                 OptionGroup(
                     label=PlainText(text="group 1"),
-                    options=[
-                        PlainOption(text=PlainText(text="option 1"), value="value_1")
-                    ],
+                    options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
                 )
             ],
-            initial_options=[
-                PlainOption(text=PlainText(text="option 2"), value="value_2")
-            ],
+            initial_options=[PlainOption(text=PlainText(text="option 2"), value="value_2")],
         )
 
 
@@ -731,10 +647,7 @@ def test_builds_external_select():
         "placeholder": {"type": "plain_text", "text": "placeholder"},
         "action_id": "action_id",
         "min_query_length": 2,
-        "initial_option": {
-            "text": {"type": "plain_text", "text": "option 1"},
-            "value": "value_1",
-        },
+        "initial_option": {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -784,9 +697,7 @@ def test_builds_multi_external_select():
         "placeholder": {"type": "plain_text", "text": "placeholder"},
         "action_id": "action_id",
         "min_query_length": 2,
-        "initial_options": [
-            {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}
-        ],
+        "initial_options": [{"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"}],
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -810,23 +721,17 @@ def test_multi_external_select_empty_action_id_raises_exception():
 
 def test_multi_external_select_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        MultiExternalSelect(
-            placeholder=PlainText(text="placeholder"), action_id="a" * 256
-        )
+        MultiExternalSelect(placeholder=PlainText(text="placeholder"), action_id="a" * 256)
 
 
 def test_multi_external_select_negative_min_query_length_raises_exception():
     with pytest.raises(ValidationError):
-        MultiExternalSelect(
-            placeholder=PlainText(text="placeholder"), min_query_length=-1
-        )
+        MultiExternalSelect(placeholder=PlainText(text="placeholder"), min_query_length=-1)
 
 
 def test_multi_external_select_zero_max_selected_items_raises_exception():
     with pytest.raises(ValidationError):
-        MultiExternalSelect(
-            placeholder=PlainText(text="placeholder"), max_selected_items=0
-        )
+        MultiExternalSelect(placeholder=PlainText(text="placeholder"), max_selected_items=0)
 
 
 def test_builds_users_select():
@@ -922,9 +827,7 @@ def test_multi_users_select_excessive_action_id_raises_exception():
 
 def test_multi_users_select_zero_max_selected_items_raises_exception():
     with pytest.raises(ValidationError):
-        MultiUsersSelect(
-            placeholder=PlainText(text="placeholder"), max_selected_items=0
-        )
+        MultiUsersSelect(placeholder=PlainText(text="placeholder"), max_selected_items=0)
 
 
 def test_builds_conversations_select():
@@ -972,16 +875,12 @@ def test_conversations_select_empty_action_id_raises_exception():
 
 def test_conversations_select_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        ConversationsSelect(
-            placeholder=PlainText(text="placeholder"), action_id="a" * 256
-        )
+        ConversationsSelect(placeholder=PlainText(text="placeholder"), action_id="a" * 256)
 
 
 def test_conversations_select_empty_initial_conversation_raises_exception():
     with pytest.raises(ValidationError):
-        ConversationsSelect(
-            placeholder=PlainText(text="placeholder"), initial_conversation=""
-        )
+        ConversationsSelect(placeholder=PlainText(text="placeholder"), initial_conversation="")
 
 
 def test_builds_multi_conversations_select():
@@ -1024,23 +923,17 @@ def test_multi_conversations_select_excessive_placeholder_raises_exception():
 
 def test_multi_conversations_select_empty_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        MultiConversationsSelect(
-            placeholder=PlainText(text="placeholder"), action_id=""
-        )
+        MultiConversationsSelect(placeholder=PlainText(text="placeholder"), action_id="")
 
 
 def test_multi_conversations_select_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        MultiConversationsSelect(
-            placeholder=PlainText(text="placeholder"), action_id="a" * 256
-        )
+        MultiConversationsSelect(placeholder=PlainText(text="placeholder"), action_id="a" * 256)
 
 
 def test_multi_conversations_select_zero_max_selected_items_raises_exception():
     with pytest.raises(ValidationError):
-        MultiConversationsSelect(
-            placeholder=PlainText(text="placeholder"), max_selected_items=0
-        )
+        MultiConversationsSelect(placeholder=PlainText(text="placeholder"), max_selected_items=0)
 
 
 def test_builds_channels_select():
@@ -1133,16 +1026,12 @@ def test_multi_channels_select_empty_action_id_raises_exception():
 
 def test_multi_channels_select_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        MultiChannelsSelect(
-            placeholder=PlainText(text="placeholder"), action_id="a" * 256
-        )
+        MultiChannelsSelect(placeholder=PlainText(text="placeholder"), action_id="a" * 256)
 
 
 def test_multi_channels_select_zero_max_selected_items_raises_exception():
     with pytest.raises(ValidationError):
-        MultiChannelsSelect(
-            placeholder=PlainText(text="placeholder"), max_selected_items=0
-        )
+        MultiChannelsSelect(placeholder=PlainText(text="placeholder"), max_selected_items=0)
 
 
 def test_builds_overflow():
@@ -1176,18 +1065,12 @@ def test_builds_overflow():
 
 def test_overflow_empty_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        Overflow(
-            action_id="",
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-        )
+        Overflow(action_id="", options=[PlainOption(text=PlainText(text="option 1"), value="value_1")])
 
 
 def test_overflow_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        Overflow(
-            action_id="a" * 256,
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-        )
+        Overflow(action_id="a" * 256, options=[PlainOption(text=PlainText(text="option 1"), value="value_1")])
 
 
 def test_overflow_empty_options_raise_exception():
@@ -1197,12 +1080,7 @@ def test_overflow_empty_options_raise_exception():
 
 def test_overflow_excessive_options_raise_exception():
     with pytest.raises(ValidationError):
-        Overflow(
-            options=[
-                PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")
-                for o in range(6)
-            ]
-        )
+        Overflow(options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}") for o in range(6)])
 
 
 def test_builds_plain_text_input():
@@ -1213,9 +1091,7 @@ def test_builds_plain_text_input():
         multiline=True,
         min_length=5,
         max_length=500,
-        dispatch_action_config=DispatchActionConfig(
-            trigger_actions_on=["on_character_entered"]
-        ),
+        dispatch_action_config=DispatchActionConfig(trigger_actions_on=["on_character_entered"]),
         focus_on_load=True,
     ).build() == {
         "type": "plain_text_input",
@@ -1292,10 +1168,7 @@ def test_builds_radio_buttons():
             {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
             {"text": {"type": "mrkdwn", "text": "_option 2_"}, "value": "value_2"},
         ],
-        "initial_option": {
-            "text": {"type": "plain_text", "text": "option 1"},
-            "value": "value_1",
-        },
+        "initial_option": {"text": {"type": "plain_text", "text": "option 1"}, "value": "value_1"},
         "confirm": {
             "title": {"type": "plain_text", "text": "title"},
             "text": {"type": "mrkdwn", "text": "text"},
@@ -1308,18 +1181,12 @@ def test_builds_radio_buttons():
 
 def test_radio_buttons_empty_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        RadioButtons(
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            action_id="",
-        )
+        RadioButtons(options=[PlainOption(text=PlainText(text="option 1"), value="value_1")], action_id="")
 
 
 def test_radio_buttons_excessive_action_id_raises_exception():
     with pytest.raises(ValidationError):
-        RadioButtons(
-            options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            action_id="a" * 256,
-        )
+        RadioButtons(options=[PlainOption(text=PlainText(text="option 1"), value="value_1")], action_id="a" * 256)
 
 
 def test_radio_buttons_empty_options_raise_exception():
@@ -1329,21 +1196,14 @@ def test_radio_buttons_empty_options_raise_exception():
 
 def test_radio_buttons_excessive_options_raise_exception():
     with pytest.raises(ValidationError):
-        RadioButtons(
-            options=[
-                PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}")
-                for o in range(11)
-            ]
-        )
+        RadioButtons(options=[PlainOption(text=PlainText(text=f"option {o}"), value=f"value_{o}") for o in range(11)])
 
 
 def test_radio_buttons_initial_options_arent_within_options_raise_exception():
     with pytest.raises(ValidationError):
         RadioButtons(
             options=[PlainOption(text=PlainText(text="option 1"), value="value_1")],
-            initial_option=PlainOption(
-                text=PlainText(text="option 2"), value="value_2"
-            ),
+            initial_option=PlainOption(text=PlainText(text="option 2"), value="value_2"),
         )
 
 
@@ -1381,12 +1241,7 @@ def test_builds_rich_text_quote():
             Text(text="is better than well "),
             Text(text="said.", style=Style(bold=True, strike=True)),
             Emoji(name="wink"),
-            Date(
-                timestamp=123456789,
-                format="{ago}",
-                url="https://example.com",
-                fallback="Yep",
-            ),
+            Date(timestamp=123456789, format="{ago}", url="https://example.com", fallback="Yep"),
             Link(text="hello", url="https://example.com"),
         ]
     ).build() == {
@@ -1453,14 +1308,8 @@ def test_builds_rich_text_list():
         "style": "ordered",
         "indent": 1,
         "elements": [
-            {
-                "type": "rich_text_section",
-                "elements": [{"type": "text", "text": "My first bullet point"}],
-            },
-            {
-                "type": "rich_text_section",
-                "elements": [{"type": "text", "text": "My second bullet point"}],
-            },
+            {"type": "rich_text_section", "elements": [{"type": "text", "text": "My first bullet point"}]},
+            {"type": "rich_text_section", "elements": [{"type": "text", "text": "My second bullet point"}]},
         ],
     }
 
@@ -1480,9 +1329,7 @@ def test_invalid_rich_text_list_style_raises_exception(minimal_rich_text_list_el
         RichTextList(elements=minimal_rich_text_list_elements, style="invalid")
 
 
-def test_invalid_rich_text_list_indent_raises_exception(
-    minimal_rich_text_list_elements,
-):
+def test_invalid_rich_text_list_indent_raises_exception(minimal_rich_text_list_elements):
     with pytest.raises(ValidationError):
         RichTextList(elements=minimal_rich_text_list_elements, indent=-1)
     with pytest.raises(ValidationError):
@@ -1532,9 +1379,7 @@ def test_timepicker_excessive_placeholder_raises_exception():
 
 
 def test_builds_fileinput():
-    assert FileInput(
-        action_id="action_id", filetypes=["file"], max_files=1
-    ).build() == {
+    assert FileInput(action_id="action_id", filetypes=["file"], max_files=1).build() == {
         "type": "file_input",
         "action_id": "action_id",
         "filetypes": ["file"],
@@ -1551,9 +1396,7 @@ def test_builds_email_text_input():
     assert EmailTextInput(
         action_id="action_id",
         initial_value="dima@botsignals.co",
-        dispatch_action_config=DispatchActionConfig(
-            trigger_actions_on=["on_character_entered"]
-        ),
+        dispatch_action_config=DispatchActionConfig(trigger_actions_on=["on_character_entered"]),
         focus_on_load=True,
         placeholder=PlainText(text="placeholder"),
     ).build() == {
@@ -1580,9 +1423,7 @@ def test_builds_url_text_input():
     assert URLTextInput(
         action_id="action_id",
         initial_value="https://example.com/",
-        dispatch_action_config=DispatchActionConfig(
-            trigger_actions_on=["on_character_entered"]
-        ),
+        dispatch_action_config=DispatchActionConfig(trigger_actions_on=["on_character_entered"]),
         focus_on_load=True,
         placeholder=PlainText(text="placeholder"),
     ).build() == {
